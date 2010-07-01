@@ -1,0 +1,262 @@
+<html>
+<head>
+<title> Highlighting </title>
+<script type="text/javascript">
+function parse_color(color, rString){
+   if(color.indexOf("#") != -1){
+      color = color.replace("#", "");
+
+      var red   = parseInt(color.substr(0,2) ,16);
+      var green = parseInt(color.substr(2,2) ,16);
+      var blue  = parseInt(color.substr(4,2) ,16);
+
+      if(rString)
+           return "#"+red+green+blue;
+      else return [red, green, blue];
+   }
+   if(color.indexOf("rgb") != -1){
+      color = color.replace("rgb", "")
+              .replace("(", "")
+              .replace(")", "")
+              .replace(" ", "");
+      var colors = color.split(",");
+
+      if(rString)
+           return "#"+colors[0]+colors[1]+colors[2];
+      else return colors;
+   }
+   return false;
+}
+
+// Whitten <color> by <step> to a maximum of <maxColor>
+//    <color> and <maxColor> are parsed with the <parse_color()> function
+//    <step> must be a number
+function whitten(color, step, maxColor){
+   var defaultColor = "#284e9f";
+
+   var colors = parse_color(color);
+   var colors_max = parse_color( ((maxColor == null)? "#FFFFFF" : maxColor) );
+
+   if(colors == false) colors = parse_color(defaultColor);
+   step = ( (step == null)? (50) : ((typeof step != 'number')? (parseInt(step)) : (step)) );
+
+   var red   = colors[0];    var red_max   = colors_max[0];
+   var green = colors[1];    var green_max = colors_max[1];
+   var blue  = colors[2];    var blue_max  = colors_max[2];
+             
+   red = red -(-step);
+   if(red > red_max) red = red_max;
+   red = red.toString(16);
+   if(red.length == 1) red = "0"+red;
+
+   green = green -(-step);
+   if(green > green_max) green = green_max;
+   green = green.toString(16);
+   if(green.length == 1) green = "0"+green;
+
+   blue = blue -(-step);
+   if(blue > blue_max) blue = blue_max;
+   blue = blue.toString(16);
+   if(blue.length == 1) blue = "0"+blue;
+
+   return("#"+red+green+blue);
+}
+
+// Darken <color> by <step> to a maximum of <maxColor>
+//    <color> and <maxColor> are parsed with the <parse_color()> function
+//    <step> must be a number
+function darken(color, step, maxColor){
+   var colors = parse_color(color);
+   var colors_max = parse_color( ((maxColor == null)? "#000000" : maxColor) );
+   step = ( (step == null)? (50) : ((typeof step != 'number')? (parseInt(step)) : (step)) );
+
+   var red   = colors[0];    var red_max   = colors_max[0];
+   var green = colors[1];    var green_max = colors_max[1];
+   var blue  = colors[2];    var blue_max  = colors_max[2];
+
+   red = red -step;
+   if(red < red_max) red = red_max;
+   red = red.toString(16);
+   if(red.length == 1) red = "0"+red;
+
+   green = green -step;
+   if(green < green_max) green = green_max;
+   green = green.toString(16);
+   if(green.length == 1) green = "0"+green;
+
+   blue = blue -step;
+   if(blue < blue_max) blue = blue_max;
+   blue = blue.toString(16);
+   if(blue.length == 1) blue = "0"+blue;
+
+   return("#"+red+green+blue);
+}
+
+// Highlighting
+var Highlighted = new Array;
+
+function gradateBg(ele, sColor, dir){
+   // Don't call this function directly
+   // Call through "highlight(ElementId)"
+   var elem = document.getElementById(ele);
+   var I = elem.highlighted;
+
+   if(dir == null) dir = Highlighted[I].dir;
+   if(dir=="+" && sColor.toLowerCase() == Highlighted[I].tColor.toLowerCase()) dir="-";
+   if(dir=="-" && sColor.toLowerCase() == Highlighted[I].fColor.toLowerCase()) dir="+";
+
+   elem.style.backgroundColor = sColor;
+
+   if(dir == "+") var nColor = whitten(sColor, 10, Highlighted[I].tColor);
+   if(dir == "-") var nColor =  darken(sColor, 10, Highlighted[I].fColor);
+
+   Highlighted[I].dir = dir;
+   Highlighted[I].timeout = setTimeout("gradateBg('"+ele+"', '"+nColor+"');", Highlighted[I].interval);
+}
+
+// Highlight element with id <ele> from color <fColor> to <tColor>
+// <fColor> and <tColor> are parsed with <parse_color()> function
+function highlight(ele, fColor, tColor, contentColor){
+   if(fColor == null) fColor = "#8B0000";
+   if(tColor == null) tColor = "#FF0000";
+   if(contentColor == null) contentColor = "black";
+   var elem = document.getElementById(ele);
+
+   if(typeof elem.highlighted != "undefined" && elem.highlighted !== false)
+      return false;
+
+   var initial = {
+      color: elem.style.color,
+      bgcolor: elem.style.backgroundColor,
+      timeout: "", interval: 100,
+      fColor: fColor,
+      tColor: tColor,
+      dir: "+"
+   };
+
+   var I = Highlighted.push(initial)-1;
+   elem.highlighted = I;
+
+   elem.style.color = contentColor;
+   gradateBg(ele, fColor);
+}
+
+// Unhighlight element with id <ele>
+function unhighlight(ele){
+   var elem = document.getElementById(ele);
+   if(elem.highlighted === false) return false;
+   var I = elem.highlighted;
+
+   clearTimeout(Highlighted[I].timeout);
+   elem.highlighted = false;
+   //delete elem.highlighted; // Gives error in IE ;-(
+
+   elem.style.backgroundColor = Highlighted[I].bgcolor;
+   elem.style.color           = Highlighted[I].color;
+}
+</script>
+</head>
+<body>
+
+<table><tr><td width="300">
+   <span id="test0">Test  text</span>
+</td><td>
+   <button onclick="highlight('test0');">Highlight!</button>
+   <button onclick="unhighlight('test0');">Unhighlight!</button>
+</td></tr>
+</table>
+
+<br /><br />
+
+<table><tr><td width="300">
+   <button id="test1">Test Button</button>
+</td><td>
+   <button onclick="highlight('test1');">Highlight!</button>
+   <button onclick="unhighlight('test1');">Unhighlight!</button>
+</td></tr>
+</table>
+
+<br /><br />
+
+<table><tr><td width="300">
+   <table id="test2" border="1">
+      <tr>
+         <td>Test Table</td>
+         <td>Second Cell</td>
+      </tr>
+      <tr>
+         <td>Row Two</td>
+         <td>Row Two</td>
+      </tr>
+   </table>
+</td><td>
+   <button onclick="highlight('test2');">Highlight!</button>
+   <button onclick="unhighlight('test2');">Unhighlight!</button>
+</td></tr>
+</table>
+
+<br /><br />
+
+<table><tr><td width="300">
+   <table border="1">
+      <tr id="test3">
+         <td>Test Row</td>
+         <td>Second Cell</td>
+      </tr>
+      <tr>
+         <td>Row Two</td>
+         <td>Row Two</td>
+      </tr>
+   </table>
+</td><td>
+   <button onclick="highlight('test3');">Highlight!</button>
+   <button onclick="unhighlight('test3');">Unhighlight!</button>
+</td></tr>
+</table>
+
+<br /><br />
+
+<table><tr><td width="300">
+   <table border="1">
+      <tr>
+         <td id="test4">Test Cell</td>
+         <td>Second Cell</td>
+      </tr>
+      <tr>
+         <td>Row Two</td>
+         <td>Row Two</td>
+      </tr>
+   </table>
+</td><td>
+   <button onclick="highlight('test4');">Highlight!</button>
+   <button onclick="unhighlight('test4');">Unhighlight!</button>
+</td></tr>
+</table>
+
+<br /><br />
+
+<table><tr><td width="300">
+   <table border="1">
+      <caption id="test5">Test Caption</caption>
+      <tr>
+         <td>First  Cell</td>
+         <td>Second Cell</td>
+      </tr>
+      <tr>
+         <td>Row Two</td>
+         <td>Row Two</td>
+      </tr>
+   </table>
+</td><td>
+   <button onclick="highlight('test5');">  Highlight!  </button>
+   <button onclick="unhighlight('test5');">Unhighlight!</button>
+</td></tr>
+</table>
+
+<br /><br />
+
+<button onclick="for(i=0;i<6;i++)highlight('test'+i);">   Highlight All 6 Tests  </button>
+<button onclick="for(ui=0;ui<6;ui++) unhighlight('test'+ui);"> Unhighlight All 6 Tests</button>
+
+</body>
+</html>
