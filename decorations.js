@@ -104,7 +104,9 @@ function loading(node, p){
       var str = this.direction? this.initHTML : this.initHTML.split("").reverse().join("");
 
       var   loaded = str.substr(0, this.index);
-      var unloaded = ( this.shuffle=="all"? str : str.substr(this.index) )
+      
+         var toShuffle = this.shuffle=="all"?  str : (this.shuffle!="alphabet"? str : "abcdefghijklmnopqrstuvwxyz").substr(this.index);
+      var unloaded = ( toShuffle )
          .split("").sort( function(){ return Math.random()-0.5 } ).join("")
          .substr(0, (str.length - this.index));
 
@@ -392,6 +394,9 @@ function radio(node, p){
                   else
                      decorations[j].setAttribute("loader", "done");
          }
+
+         if(this.index == i)
+      	  eval(this.whenOpened);
       }
 
       this.index = ( ++this.index )%this.targets.length;
@@ -432,11 +437,18 @@ function radio(node, p){
          	  if(this.targets.indexOf(tmp[j])==-1){
          	     this.targets.splice( n+1+i+u+j, 0, tmp[j]);
          	     if(j>0) u++;
+
+         	     if(tmp[j].getAttribute("event"))
+         	        this.event += ","+ tmp[j].getAttribute("event");
          	  }
          }else
          if(typeof tmp.length == "undefined")
-            if(this.targets.indexOf(tmp)==-1)
+            if(this.targets.indexOf(tmp)==-1){
                this.targets.splice( n+1+i+u, 0, tmp);
+
+               if(tmp.getAttribute("event"))
+         	        this.event += ","+ tmp.getAttribute("event");
+            }
       }
    }
 

@@ -1,0 +1,409 @@
+
+<html>
+<head>
+   <title>Decorations</title>
+   <script type="text/javascript" src="decorations.js"></script>
+   <style type="text/css">
+   a.parameter:hover{
+   	text-decoration: underline;
+   }
+   </style>
+</head>
+<body style="padding-left:50px">
+   <br /><br />
+
+   <h3 id="loading:header">Loading Decorations</h3>
+   <div  style="margin-left:50px" class="radio decoration" group="#loading:examples" event="loading:header@click:1,loading:examples:show@click:1,loading:examples:hide@click:0" decorate="false">
+      <small  id="loading:examples:show"><a href="#"> (Examples) </a></small>
+   </div>
+   <div id="loading:examples" style="margin-left:50px">
+      <small id="loading:examples:hide"><a href="#"> (Hide Examples) </a></small>
+
+      <br /><br />
+      <span class="loading decoration" event="mouseover" delay="3000" shuffle="all" repeat="5" whenDone="this.direction = !this.direction;">Some text to be repeatedly loaded</span>
+
+      <br /> <br />
+      <a    class="loading decoration" mode="luck" direction="rtl">Some text to be luckily loaded</a>
+
+      <br /> <br />
+      <em   class="loading decoration" loader="done" event="click" delimiter="<br>" skip="7" style="position:absolute; left:415px; top: 80px;">Matrix style loading</em>
+   </div>
+
+   <br />
+
+   <div  style="margin-left:50px" class="radio decoration" group="#loading:syntax" event="loading:syntax:show@click:1,loading:syntax:hide@click:0" decorate="false">
+      <small id="loading:syntax:show"><a href="#"> (Syntax) </a></small>
+   </div>
+   <div id="loading:syntax" style="margin-left:50px">
+      <small id="loading:syntax:hide"><a href="#"> (Hide Syntax) </a></small>
+
+      <br /><br />
+      <div id="loading:syntax:string">
+         &lt;~~~ <u>class</u>="<u>loading</u> <u>decoration</u>" <br />
+         <dd> <a id="loading:syntax:p1" class="parameter">[mode={<b>"normal"</b> | "luck"}]</a> <br />
+         <dd> <a id="loading:syntax:p2" class="parameter">[delay=<em>Number</em>]</a> <br />
+         <dd> <a id="loading:syntax:p3" class="parameter">[repeat=<em>Number</em>]</a> <br />
+         <dd> <a id="loading:syntax:p4" class="parameter">[event=<em>RestartEvent</em>]</a> <br />
+         <dd> <a id="loading:syntax:p5" class="parameter">[start=<em>Anything</em></a>] <br />
+         <dd> <a id="loading:syntax:p6" class="parameter">[interval=<em>Number</em>]</a> <br />
+         <dd> <a id="loading:syntax:p7" class="parameter">[direction={<b>"ltr"</b> | "rtl"}]</a> <br />
+         <dd> <a id="loading:syntax:p8" class="parameter">[shuffle={<b>"rest"</b> | "all" | "alphabet"}]</a> <br />
+         <dd> <a id="loading:syntax:p9" class="parameter">[delimiter=<em>String</em>]</a> <br />
+         <dd> <a id="loading:syntax:p10" class="parameter">[skip=<em>Number</em>]</a> <br />
+         <dd> <a id="loading:syntax:p11" class="parameter">[blink=<em>Number</em>]</a> <br />
+         <dd> <a id="loading:syntax:p12" class="parameter">[whenDone=<em>JSCodeString</em>]</a> <br />
+         &gt;<br /> <dd><em>content text</em> <br />&lt;/~~~&gt;
+      </div>
+
+      <br /><br />
+
+      <div class="radio decoration" group="loading_syntax_info" exclude="me" event="loading:syntax:string@mouseout:0">
+         Details:
+      </div>
+
+      <div name="loading_syntax_info"> </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p1@mouseover:1">
+         <strong>mode</strong> :<i>The mode of the loading decoration</i>
+         <ul>
+            <li>"normal": each step a new letter is "loaded"
+            <li>"luck": &nbsp; &nbsp; a new letter is "loaded" only when the viewed position is with the letter it should
+         </ul>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p2@mouseover:2">
+         <strong>delay</strong> :<i>The miliseconds the letter loading is delayed. This ensures n ms of shuffling content</i>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p3@mouseover:3">
+         <strong>repeat</strong> :<i>The number of times the effect is repeated</i>
+         <ul>
+            <li>0: repeat till infinity
+         </ul>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p4@mouseover:4">
+         <strong>event</strong> :<i>The event at which the effect should start/restart</i>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p5@mouseover:5">
+         <strong>start</strong> :<i>If any value is given the effect will start immediately</i>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p6@mouseover:6">
+         <strong>interval</strong> :<i>The interval between steps in miliseconds</i>
+         <ul>
+            <li>default: 150
+         </ul>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p7@mouseover:7">
+         <strong>direction</strong> :<i>The direction from which the letters are being "loaded"</i>
+         <ul>
+            <li>"ltr": Left-to-Right (default)
+            <li>"rtl": Right-to-Left
+         </ul>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p8@mouseover:8">
+         <strong>shuffle</strong> :<i>Specifies what to shuffle among</i>
+         <ul>
+            <li>"rest": &nbsp; &nbsp; &nbsp; &nbsp; The shuffled letters are only of the unloaded ones
+            <li>"all": &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The shuffled letters are among all - loaded and unloaded
+            <li>"alphabet": &nbsp;The shuffled letters are the letters from the alphabet. Note, no uppercase included and length might be less (never more) than it should
+         </ul>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p9@mouseover:9">
+         <strong>delimiter</strong> :<i>A delimiter string/html to be put between each letter</i>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p10@mouseover:10">
+         <strong>skip</strong> :<i>The number of steps that are skipped / no letter is loaded.
+         In other words, the steps it takes for a single letter to load</i>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p11@mouseover:11">
+         <strong>blink</strong> :<i>Every N steps blink. For a single step display a fully shuffled text</i>
+      </div>
+
+      <div name="loading_syntax_info" style="margin-left:20px" event="loading:syntax:p12@mouseover:12">
+         <strong>whenDone</strong> :<i>Javascript code string to be executed when effect is done (time to repeat)</i>
+         <ul>
+            <li><b><i>this</i></b> refers to the node.decoration object
+         </ul>
+      </div>
+      
+   </div>
+
+
+
+<br /><br />
+
+
+
+   <h3 id="pour:header">Pour Decorations</h3>
+   <div  style="margin-left:50px" class="radio decoration" group="#pour:examples" event="pour:header@click:1,pour:examples:show@click:1,pour:examples:hide@click:0" decorate="false">
+      <small  id="pour:examples:show"><a href="#"> (Examples) </a></small>
+   </div>
+   <div id="pour:examples" style="margin-left:50px">
+      <small id="pour:examples:hide"><a href="#"> (Hide Examples) </a></small>
+
+      <br /><br />
+      <div  class="pour decoration"> A <b style="long tag">poured</b> text with a long <u style="long tag">tag</u> that should load instantly</div>
+
+      <br /><br />
+      <div  class="pour decoration"    tags="delayed">Text <em>with</em> <strong style="long"><u>delayed</u></strong> <big>tags</big></div>
+
+      <br /><br />
+      <div  class="pour decoration"    interval="100" wait="7" back="5">A text that is being poured in drunk style</div>
+
+      <br /><br />
+      <div  class="pour decoration"    interval="135" blink="5">A blinking text that is being poured</div>
+
+      <br /><br />
+      <div  class="pour decoration"    interval="35" rewind="12" event="click">A text that is being poured time and again</div>
+
+      <br /> <br />
+      <a    class="pour decoration"    loader="done" event="click" direction="random" delimiter="<br>" style="position:absolute; left:450px; top: 200px;">Matrix style pour</a>
+   </div>
+
+   <br />
+
+   <div  style="margin-left:50px" class="radio decoration" group="#pour:syntax" event="pour:syntax:show@click:1,pour:syntax:hide@click:0" decorate="false">
+      <small  id="pour:syntax:show"><a href="#"> (Syntax) </a></small>
+   </div>
+   <div id="pour:syntax" style="margin-left:50px">
+      <small id="pour:syntax:hide"><a href="#"> (Hide Syntax) </a></small>
+
+      <br /><br />
+      <div id="pour:syntax:string">
+         &lt;~~~ <u>class</u>="<u>pour</u> <u>decoration</u>" <br />
+         <dd> <a id="pour:syntax:p1" class="parameter">[direction={<b>"ltr"</b> | "rtl" | "cts" | "random"}]</a> <br />
+         <dd> <a id="pour:syntax:p2" class="parameter">[tags={<b>"instant"</b> | "delayed"}]</a> <br />
+         <dd> <a id="pour:syntax:p3" class="parameter">[event=<em>RestartEvent</em>]</a> <br />
+         <dd> <a id="pour:syntax:p4" class="parameter">[start=<em>Anything</em>]</a> <br />
+         <dd> <a id="pour:syntax:p5" class="parameter">[interval=<em>Number</em></a>] <br />
+         <dd> <a id="pour:syntax:p6" class="parameter">[delimiter=<em>String</em>]</a> <br />
+         <dd> <a id="pour:syntax:p7" class="parameter">[blink=<em>Number</em>]</a> <br />
+         <dd> <a id="pour:syntax:p8" class="parameter">[rewind=<em>Number</em>]</a> <br />
+         <dd> <a id="pour:syntax:p9" class="parameter">[wait=<em>Number</em></a>
+         <dd> <a id="pour:syntax:p10" class="parameter">[back=<em>Number</em>] ]</a> <br />
+         <dd> <a id="pour:syntax:p11" class="parameter">[pad=<em>String</em>]</a> <br />
+         &gt;<br /> <dd><em>content HTML</em> <br />&lt;/~~~&gt;
+      </div>
+
+      <br /><br />
+
+      <div class="radio decoration" group="pour_syntax_info" exclude="me" event="pour:syntax:string@mouseout:0">
+         Details:
+      </div>
+
+      <div name="pour_syntax_info"> </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p1@mouseover:1">
+         <strong>direction</strong> :<i>The direction in which the text is poured</i>
+         <ul>
+            <li>"ltr": Left-to-Right
+            <li>"rtl": Right-to-Left
+            <li>"cts": Center-to-Sides. Instant tags don't work here (yet)
+            <li>"random": Each step a random letter is loaded. Instant tags don't work here (yet)
+         </ul>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p2@mouseover:2">
+         <strong>tags</strong> :<i>If tags should be poured instantly or a tag letter per step</i>
+         <ul>
+            <li>"instant": The tags are poured as if they were one letter
+            <li>"delayed": The tags are poured like the rest of the text, though are not displayed after the "&lt;"
+         </ul>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p3@mouseover:3">
+         <strong>event</strong> :<i>The event at which the effect should start/restart</i>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p4@mouseover:4">
+         <strong>start</strong> :<i>If any value is given the effect will start immediately</i>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p5@mouseover:5">
+         <strong>interval</strong> :<i>The interval between steps in miliseconds</i>
+         <ul>
+            <li>default: 150
+         </ul>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p6@mouseover:6">
+         <strong>delimiter</strong> :<i>A delimiter string/html to be put between each letter</i>
+         <ul>
+            <li>"ltr": Left-to-Right (default)
+            <li>"rtl": Right-to-Left
+         </ul>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p7@mouseover:7">
+         <strong>blink</strong> :<i>In N steps have one blank</i>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p8@mouseover:8">
+         <strong>rewind</strong> :<i>In N steps rewind / start over. N stacks so after the first rewind it will rewind in N*2, then in N*3 ... turns</i>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p9@mouseover:9">
+         <strong>wait</strong> :<i>In N steps wait / don't progress</i>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p10@mouseover:10">
+         <strong>back</strong> :<i>Used with "wait"! In "wait" steps go back N steps</i>
+      </div>
+
+      <div name="pour_syntax_info" style="margin-left:20px" event="pour:syntax:p11@mouseover:11">
+         <strong>pad</strong> :<i>Used only when "direction"=="random"! Each hidden / unpoured letter is replaced by this string / HTML</i>
+      </div>
+   </div>
+
+
+
+<br /><br />
+
+
+
+   <h3 id="radio:header">Radio Decorations</h3>
+   <div  style="margin-left:50px" class="radio decoration" group="#radio:examples" event="radio:header@click:1,radio:examples:show@click:1,radio:examples:hide@click:0" decorate="false">
+      <small  id="radio:examples:show"><a href="#"> (Examples) </a></small>
+   </div>
+   <div id="radio:examples" style="margin-left:50px">
+      <small id="radio:examples:hide"><a href="#"> (Hide Examples) </a></small>
+
+      <br /><br />
+      <fieldset id="radio" class="radio decoration" style="width:100px;"
+       group="#radio:1,#radio:2,.radioClass,radioGroup" exclude="me" event="click">
+
+         <legend><small>(click)</small></legend>      
+         <div style="text-align:center;">
+            <div id="radio:1">One</div>
+            <div id="radio:2"><span class="pour decoration">Two</span></div>
+            <div class="radioClass">Three</div>
+            <div class="radioClass">Four</div>
+            <div name="radioGroup">Five</div>
+            <div name="radioGroup">Six</div>
+         </div>
+      </fieldset>
+   </div>
+
+   <br />
+
+   <div  style="margin-left:50px" class="radio decoration" group="#radio:syntax" event="radio:syntax:show@click:1,radio:syntax:hide@click:0" decorate="false">
+      <small  id="radio:syntax:show"><a href="#"> (Syntax) </a></small>
+   </div>
+   <div id="radio:syntax" style="margin-left:50px">
+      <small id="radio:syntax:hide"><a href="#"> (Hide Syntax) </a></small>
+
+      <br /><br />
+      <div id="radio:syntax:string">
+         &lt;~~~ <u>class</u>="<u>radio</u> <u>decoration</u>" <br />
+         <dd> <a id="radio:syntax:p1" class="parameter">[group=<em>IdentifierString</em>]</a> <br />
+         <dd> <a id="radio:syntax:p2" class="parameter">[event=<em>EventString</em>]</a> <br />
+         <dd> <a id="radio:syntax:p3" class="parameter">[property=<em>String</em>]</a> <br />
+         <dd> <a id="radio:syntax:p4" class="parameter">[value="<em>ValueShown</em>,<em>ValueHidden</em>"]</a> <br />
+         <dd> <a id="radio:syntax:p5" class="parameter">[start=<em>Anything</em></a>] <br />
+         <dd> <a id="radio:syntax:p6" class="parameter">[decorate=<em>Anything</em>]</a> <br />
+         <dd> <a id="radio:syntax:p7" class="parameter">[exclude={<b>"me"</b> | "this"}]</a> <br />
+         <dd> <a id="radio:syntax:p8" class="parameter">[whenOpened=<em>JSCodeString</em>]</a> <br />
+         &gt;<br /> <dd><em>content HTML</em> <br />&lt;/~~~&gt;
+      </div>
+
+      <br /><br />
+
+      <div class="radio decoration" group="radio_syntax_info" exclude="me" event="radio:syntax:string@mouseout:0">
+         Details:
+      </div>
+
+      <div name="radio_syntax_info"> </div>
+
+      <div name="radio_syntax_info" style="margin-left:20px" event="radio:syntax:p1@mouseover:1">
+         <strong>group</strong> :<i>The radio group which's elements to toggle</i>
+         <ul>
+            <li>group="identifier1,identifier2,identifier3..."
+            <li>"#ID": find an element by id ID
+            <li>".CLASS1.CLASS2": find elements by CLASS1 and CLASS2 (order NOT required)
+            <li>".CLASS1 CLASS2": find elements by "CLASS1 CLASS2" (order IS required)
+            <li>"NAMED": find elements by name NAMED
+         </ul>
+      </div>
+
+      <div name="radio_syntax_info" style="margin-left:20px" event="radio:syntax:p2@mouseover:2">
+         <strong>event</strong> :<i>A list of events to listen for</i>
+         <ul>
+            <li>event="evn1,evn2,evn3..."
+            <li>"ID@EVN:IND" : Find element by id ID and at EVN display index IND
+            <li>"EVN" : Set the default event to EVN and apply it to all group targets that have no event assigned
+         </ul>
+      </div>
+
+      <div name="radio_syntax_info" style="margin-left:20px" event="radio:syntax:p3@mouseover:3">
+         <strong>property</strong> :<i>The property which's value should be modified</i>
+         <ul>
+            <li>default <b>"display"</b>
+         </ul>
+      </div>
+
+      <div name="radio_syntax_info" style="margin-left:20px" event="radio:syntax:p4@mouseover:4">
+         <strong>value</strong> :<i>Value(s) which the property should take</i>
+         <ul>
+            <li>value="ValueShown,ValueHidden"
+            <li>if just one value is supplied (no comma) -> '',ValueHidden
+            <li>default <b>"none"</b>
+         </ul>
+      </div>
+
+      <div name="radio_syntax_info" style="margin-left:20px" event="radio:syntax:p5@mouseover:5">
+         <strong>start</strong> :<i>If any value is given the effect will start immediately</i>
+      </div>
+
+      <div name="radio_syntax_info" style="margin-left:20px" event="radio:syntax:p6@mouseover:6">
+         <strong>decorate</strong> :<i>If any value is given children decorations will not be modified / paused when parent elements are toggled</i>
+      </div>
+
+      <div name="radio_syntax_info" style="margin-left:20px" event="radio:syntax:p7@mouseover:7">
+         <strong>exclude</strong> :<i>If the group must not include the calling object (self). The calling object is included by default so this is necesseray</i>
+      </div>
+
+      <div name="radio_syntax_info" style="margin-left:20px" event="radio:syntax:p8@mouseover:8">
+         <strong>whenOpened</strong> :<i>javascript Code String to be executed when an element is shown</i>
+      </div>
+   </div>
+
+
+
+<br /><br />
+
+
+
+   <h3 id="bracket:header">Bracket Decorations</h3>
+   <div  style="margin-left:50px" class="radio decoration" group="#bracket:examples" event="bracket:header@click:1,bracket:examples:show@click:1,bracket:examples:hide@click:0" decorate="false">
+      <small  id="bracket:examples:show"><a href="#"> (Examples) </a></small>
+   </div>
+   <div id="bracket:examples" style="margin-left:50px">
+      <small id="bracket:examples:hide"><a href="#"> (Hide Examples) </a></small>
+
+      <br /><br />
+      <a href="#" id="term">Lorem ipsum</a> <span class="bracket decoration" caption="*" event="click,term@click"> is simply dummy text</span> dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+         <span class="radio decoration" group="#more" event="click"><small><a href='#'>Show more</a></small></span> <span id="more"><span class="pour decoration">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span></span>
+   </div>
+
+   <br />
+
+   <div  style="margin-left:50px" class="radio decoration" group="#bracket:syntax" event="bracket:syntax:show@click:1,bracket:syntax:hide@click:0" decorate="false">
+      <small  id="bracket:syntax:show"><a href="#"> (Syntax) </a></small>
+   </div>
+   <div id="bracket:syntax" style="margin-left:50px">
+      <small id="bracket:syntax:hide"><a href="#"> (Hide Syntax) </a></small>
+
+      <br /><br />
+      &lt;~~~ <u>class="bracket decoration"</u>  &gt; <em>content HTML</em> &lt;/~~~&gt;
+   </div>
+
+</body>
+</html>
