@@ -1,0 +1,16 @@
+### Decorations ###
+#This is a version file
+#  used for dynamically updating links so that people know there's something new
+#  it also contains the changelogs for a given project
+
+
+version 0
+    - Shown some basic ideas with a lot of heavy code
+
+version 1
+    - Code rewritten in much more styled and efficient way
+
+version 2
+    - Major rework to code
+    - Great functionality improvements
+    - A lot of cool examples
